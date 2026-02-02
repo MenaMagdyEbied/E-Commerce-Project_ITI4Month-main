@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/contact.css">
+
+</head>
+
+<body>
+
+    <div id="navbar"></div>
+
+    <main>
+        <div class="contact-header-modern text-center">
+            <div class="container">
+                <h1 class="display-4 fw-bold">Get in Touch</h1>
+                <p class="fs-5">Have a question or just want to say hi? We'd love to hear from you.</p>
+            </div>
+        </div>
+
+        <div class="container mb-5">
+            <div class="row contact-card g-0">
+                
+                <div class="col-md-5 contact-info-sidebar">
+                    <h3 class="fw-bold mb-4 text-dark">Contact Information</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Our Location</h6>
+                            <p class="text-muted mb-0">Minya University - ITI</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Phone Number</h6>
+                            <p class="text-muted mb-0">+20 100 000 0000</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Email Support</h6>
+                            <p class="text-muted mb-0">support@shopease.com</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <h6 class="fw-bold mb-3">Follow Us</h6>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="btn btn-sm btn-outline-primary rounded-circle"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-primary rounded-circle"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="btn btn-sm btn-outline-primary rounded-circle"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7 p-4 p-lg-5">
+                    <div id="successMessage" class="alert alert-success mb-4 text-center">
+                        <i class="fas fa-check-circle me-2"></i>
+                        We received your message and will contact you back soon!
+                    </div>
+
+                    <form id="contactForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Full Name</label>
+                                <input type="text" id="fullName" class="form-control" placeholder="Ahmed Ashraf" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="name@example.com" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="What's this about?">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Message</label>
+                            <textarea id="message" class="form-control" rows="5" placeholder="Write your message here..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-send w-100">
+                            <i class="fas fa-paper-plane me-2"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../JAVASCRIPT/LoadComponents.js"></script>
+    <script src="../JAVASCRIPT/contact.js"></script>
+
+</body>
+</html>

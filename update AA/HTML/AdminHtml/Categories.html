@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Admin Category Management - Bootstrap Style</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    
+    <style>
+        /* دمج تنسيقات الـ Sidebar من صفحة Orders */
+        :root { --orders-bg: #f4f7fe; --orders-border: #e9ecef; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--orders-bg); color: #334155; }
+        
+        .orders-side { min-height: 100vh; background: #fff; border-right: 1px solid var(--orders-border); position: sticky; top: 0; }
+        .orders-link { color: #64748b; padding: 12px; border-radius: 8px; text-decoration: none; display: block; margin-bottom: 5px; font-size: 13px; }
+        .orders-link.active { background: #e0eaff; color: #2563eb; font-weight: 600; }
+        
+        /* تنسيقات صفحة الـ Categories الأصلية */
+        .material-symbols-outlined { vertical-align: middle; font-size: 20px; }
+        .table-container { background: #fff; border-radius: 0.5rem; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
+        .card { border: 1px solid rgba(0, 0, 0, .125); border-radius: 0.5rem; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
+        .toast-container-custom { position: fixed; bottom: 2rem; right: 2rem; z-index: 1050; }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-md-2 orders-side p-3 d-none d-md-flex flex-column">
+                <div class="fw-bold mb-4 text-primary fs-5 px-2"><i class="bi bi-shield-lock-fill"></i> Admin Dashboard</div>
+                <nav class="flex-grow-1">
+                    <a href="dashboard.html" class="orders-link"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
+                    <a href="admins.html" class="orders-link"><i class="bi bi-people-fill me-2"></i> Admins</a>
+                    <a href="Categories.html" class="orders-link active"><i class="bi bi-tags-fill me-2"></i> Categories</a>
+                    <a href="products.html" class="orders-link"><i class="bi bi-cart-fill me-2"></i> Products</a>
+                    <a href="orders.html" class="orders-link"><i class="bi bi-bag-fill me-2"></i> Orders</a>
+                </nav>
+                <a href="#" class="orders-link text-danger border-top pt-3"><i class="bi bi-box-arrow-right me-2"></i> Log out</a>
+            </aside>
+
+            <main class="col-md-10 p-4">
+                <div class="row align-items-center mb-4">
+                    <div class="col">
+                        <h1 class="h3 fw-bold mb-1">Category Management</h1>
+                        <p class="text-muted mb-0">Create, view, update, and delete your product taxonomy</p>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary d-flex align-items-center gap-2">
+                            <span class="material-symbols-outlined">add</span>
+                            Add New Category
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container bg-white p-0 border overflow-hidden mb-5">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4 py-3 text-uppercase small fw-bold text-muted" style="width: 100px;">ID</th>
+                                    <th class="py-3 text-uppercase small fw-bold text-muted">Category Name</th>
+                                    <th class="py-3 text-uppercase small fw-bold text-muted">Description</th>
+                                    <th class="pe-4 py-3 text-uppercase small fw-bold text-muted text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ps-4 font-monospace text-muted">#101</td>
+                                    <td class="fw-semibold">Electronics</td>
+                                    <td class="text-muted text-truncate" style="max-width: 300px;">Gadgets, devices, and latest tech components</td>
+                                    <td class="pe-4 text-end">
+                                        <button class="btn btn-outline-primary btn-sm me-1" title="Edit">
+                                            <span class="material-symbols-outlined">edit</span>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm" title="Delete">
+                                            <span class="material-symbols-outlined">delete</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                    </div>
+
+                <div class="card mb-5">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="card-title mb-0 fw-bold">Add / Edit Category</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form class="row g-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="categoryName">Category Name</label>
+                                <input class="form-control" id="categoryName" placeholder="e.g. Health &amp; Wellness" type="text" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold" for="categoryIcon">Display Icon (Optional)</label>
+                                <select class="form-select" id="categoryIcon">
+                                    <option selected="">Select an icon</option>
+                                    <option>Devices</option>
+                                    <option>Checkroom</option>
+                                    <option>Book</option>
+                                    <option>Kitchen</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold" for="categoryDescription">Description</label>
+                                <textarea class="form-control" id="categoryDescription" placeholder="Briefly describe what this category contains..." rows="4"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-light py-3 d-flex justify-content-end gap-2">
+                        <button class="btn btn-secondary px-4" type="button">Cancel</button>
+                        <button class="btn btn-primary px-4 fw-semibold" type="submit">Save Category</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="toast-container-custom">
+        <div aria-atomic="true" aria-live="assertive" class="toast show align-items-center text-white bg-dark border-0" role="alert">
+            <div class="d-flex">
+                <div class="toast-body d-flex align-items-center gap-2">
+                    <span class="material-symbols-outlined text-success">check_circle</span>
+                    Categories updated successfully
+                </div>
+                <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", function () {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!currentUser || currentUser.role !== "admin") {
+        window.location.href = "../login.html";
+    }
+});
+</script>
+</body>
+
+</html>
