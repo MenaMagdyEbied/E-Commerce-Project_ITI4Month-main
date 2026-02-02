@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="..\CSS\shopping-cart&wishlist.css">
+    <link rel="stylesheet" href="..\CSS\header.css">
+</head>
+
+<body>
+
+    <div id="navbar"></div>
+
+    <main class="bg-body-tertiary min-vh-100 ">
+
+        <section class="Shopping container py-5 my-4">
+            <h2>Your Shopping Cart</h2>
+            <p>you have 3 items in your bag</p>
+            <div class="Shopping-cart row">
+                <div class="items col-md-8">
+                    <div class="card cart-card shadow-sm  border-0 p-1 my-2">
+                        <div class="row g-0 align-items-center">
+
+                            <div class="col-md-2 col-3">
+                                <img src="..\images\bg-header.avif"
+                                    class="img-fluid rounded-start object-fit-cover cart-img" alt="Product">
+                            </div>
+
+                            <div class="col-md-10 col-9 d-flex flex-column justify-content-between p-2">
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 text-truncate">Laptop</h6>
+                                    <strong>$120</strong>
+                                </div>
+
+                                <div class="d-flex  mt-2 p-1">
+                                    <div class="d-flex align-items-center gap-2 qty-box m-1 ">
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle">−</button>
+                                        <span class="fw-medium">1</span>
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle">+</button>
+
+                                    </div>
+                                    <button class="btn p-0 btn-remove mx-3">
+                                        <i class="fa-regular fa-trash-can me-1"></i> Remove
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card cart-card shadow-sm  border-0 p-1 my-2">
+                        <div class="row g-0 align-items-center">
+
+                            <div class="col-md-2 col-3">
+                                <img src="..\images\bg-header.avif"
+                                    class="img-fluid rounded-start object-fit-cover cart-img" alt="Product">
+                            </div>
+
+                            <div class="col-md-10 col-9 d-flex flex-column justify-content-between p-2">
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 text-truncate">Laptop</h6>
+                                    <strong>$120</strong>
+                                </div>
+
+                                <div class="d-flex  mt-2 p-1">
+                                    <div class="d-flex align-items-center gap-2 qty-box m-1">
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle">−</button>
+                                        <span class="fw-medium">1</span>
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle">+</button>
+
+                                    </div>
+                                    <button class="btn p-0 btn-remove mx-3">
+                                        <i class="fa-regular fa-trash-can me-1"></i> Remove
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card cart-card shadow-sm  border-0 p-1 my-2">
+                        <div class="row g-0 align-items-center">
+
+                            <div class="col-md-2 col-3">
+                                <img src="..\images\bg-header.avif"
+                                    class="img-fluid rounded-start object-fit-cover cart-img" alt="Product">
+                            </div>
+
+                            <div class="col-md-10 col-9 d-flex flex-column justify-content-between p-2">
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0 text-truncate">Laptop</h6>
+                                    <strong>$120</strong>
+                                </div>
+
+                                <div class="d-flex  mt-2 p-1">
+                                    <div class="d-flex align-items-center gap-2 qty-box m-1">
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle">−</button>
+                                        <span class="fw-medium">1</span>
+                                        <button class="btn btn-outline-secondary btn-sm rounded-circle">+</button>
+
+                                    </div>
+                                    <button class="btn p-0 btn-remove mx-3">
+                                        <i class="fa-regular fa-trash-can me-1"></i> Remove
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-summary card col-md-4 shadow-sm border-0 p-3 my-3">
+                    <h5 class="mb-3">Order Summary</h5>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal</span>
+                        <span>$240</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Shipping</span>
+                        <span class="text-success">FREE</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Estimated Tax</span>
+                        <span>$20</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold mb-3">
+                        <span>Total</span>
+                        <span>$260</span>
+                    </div>
+                    <button class="btn btn-primary w-100">Place Order</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="footer"></div>
+    <script src="../JAVASCRIPT/LoadComponents.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../JAVASCRIPT/authhelper.js"></script>
+</body>
+
+</html>

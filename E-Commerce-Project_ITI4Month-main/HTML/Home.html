@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ShopPro | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/E-Commerce-Project_ITI4Month-main/CSS/CssHome.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/CssHome.css">
+  <style>
+    html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+section {
+    overflow: hidden; /* زيادة تأكيد عشان أي حركة جوه السكشن متطلعش برا */
+}
+    .stat-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .stat-card:hover { transform: translateY(-10px); }
+    .cta-section {
+      background: linear-gradient(45deg, #0d6efd, #0046af);
+      border-radius: 20px;
+      margin: 40px 0;
+      padding: 60px 20px;
+    }
+    /* الأوضاع الافتراضية للسكاشن قبل ما تظهر */
+.animate-up, .animate-down, .animate-left, .animate-right {
+    opacity: 0;
+    transition: all 0.8s ease-out; /* سرعة الحركة */
+}
+
+.animate-up { transform: translateY(50px); }
+.animate-down { transform: translateY(-50px); }
+.animate-left { transform: translateX(-50px); }
+.animate-right { transform: translateX(50px); }
+
+/* الوضع لما السكشن يظهر (لما الـ JS يضيف class show) */
+.animate-up.show, .animate-down.show, .animate-left.show, .animate-right.show {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+  </style>
+</head>
+
+<body>
+ <div id="navbar"></div>
+
+<section class="hero-section vh-90 position-relative text-center text-white animate-down">
+  <img src="/E-Commerce-Project_ITI4Month-main/image/bavk4.jpg" 
+       class="img-fluid position-absolute top-0 start-0 w-100 h-100" 
+       style="object-fit: cover; filter: brightness(0.7);" 
+       alt="Hero Background">
+  <div class="container h-100 d-flex flex-column justify-content-center align-items-center position-relative">
+    <span class="badge bg-warning text-dark mb-3">Limited Time Offer</span>
+    <h1 class="display-4 fw-bold mt-3">Top Electronics 2026</h1>
+    <p class="lead mb-4">Best Gadgets • Free Shipping • Easy Returns</p>
+    <div class="d-flex justify-content-center flex-wrap gap-2">
+      <a href="#products" class="btn btn-primary btn-lg">Shop Now</a>
+      <a href="#categor" class="btn btn-outline-light btn-lg">View Deals</a>
+    </div>
+  </div>
+</section>
+
+<section class="features-section py-5 animate-left">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-md-3"><div class="feature-card"><h5>Free Shipping</h5><p>On all orders</p></div></div>
+      <div class="col-md-3"><div class="feature-card"><h5>Secure Payment</h5><p>100% protected</p></div></div>
+      <div class="col-md-3"><div class="feature-card"><h5>Easy Returns</h5><p>Within 30 days</p></div></div>
+      <div class="col-md-3"><div class="feature-card"><h5>24/7 Support</h5><p>Always available</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="categor" class="categories-section py-5 bg-light animate-right">
+  <div class="container">
+    <h2 class="text-center mb-5">Featured Categories</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-2 col-6 text-center">
+        <a href="index.html?cat=laptops" class="text-decoration-none">
+          <div class="img-3d"><img src="/E-Commerce-Project_ITI4Month-main/image/laptop1.png" class="category-img"></div>
+          <span class="text-primary fw-bold">Electronics</span>
+        </a>
+      </div>
+      <div class="col-md-2 col-6 text-center">
+        <a href="index.html?cat=smartphones" class="text-decoration-none">
+          <div class="img-3d"><img src="/E-Commerce-Project_ITI4Month-main/image/zfo1.png" class="category-img"></div>
+          <span class="text-primary fw-bold">Mobile phones</span>
+        </a>
+      </div>
+      <div class="col-md-2 col-6 text-center">
+        <a href="index.html?cat=mobile-accessories" class="text-decoration-none">
+          <div class="img-3d"><img src="/E-Commerce-Project_ITI4Month-main/image/so1.png" class="category-img"></div>
+          <span class="text-primary fw-bold">Headphone</span>
+        </a>
+      </div>
+      <div class="col-md-2 col-6 text-center">
+        <a href="index.html?cat=mobile-accessories" class="text-decoration-none">
+          <div class="img-3d"><img src="/E-Commerce-Project_ITI4Month-main/image/ar2.png" class="category-img"></div>
+          <span class="text-primary fw-bold">AirPods</span>
+        </a>
+      </div>
+      <div class="col-md-2 col-6 text-center">
+        <a href="index.html?cat=mens-watches" class="text-decoration-none">
+          <div class="img-3d"><img src="/E-Commerce-Project_ITI4Month-main/image/what01.png" class="category-img"></div>
+          <span class="text-primary fw-bold">Watches</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products" class="products-section py-5 animate-up">
+  <div class="container">
+    <h2 class="text-center mb-5">Trending Products</h2>
+    <div class="row g-4 justify-content-center" id="cards-row"> </div>
+  </div>
+</section>
+
+<section id="deals" class="flash-deals-section py-5 bg-dark text-white animate-on-scroll">
+  <div class="container text-center">
+    <h2 class="mb-5">🔥 Flash Deals</h2>
+    <div class="row g-4 justify-content-center" id="deals-container"></div>
+  </div>
+</section>
+
+<section class="stats-section py-5 animate-up">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-md-3"><div class="stat-card"><h2>10K+</h2><p>Happy Customers</p></div></div>
+      <div class="col-md-3"><div class="stat-card"><h2>500+</h2><p>Products</p></div></div>
+      <div class="col-md-3"><div class="stat-card"><h2>24/7</h2><p>Support</p></div></div>
+      <div class="col-md-3"><div class="stat-card"><h2>100%</h2><p>Secure Payments</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+    <section class="cta-section text-white text-center animate-down">
+      <h2>Join Our Community</h2>
+      <p>Get exclusive offers and special deals</p>
+      <div class="d-flex justify-content-center gap-2 mt-4">
+    <input type="email" id="subEmail" class="form-control w-50" placeholder="Your email (e.g. name@example.com)">
+    <button class="btn btn-light fw-bold" onclick="validateSubscribe()">Subscribe</button>
+</div>
+<div id="subMessage" class="mt-2" style="font-size: 0.9rem;"></div>
+      </div>
+    </section>
+</div>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../JAVASCRIPT/LoadComponents.js"></script>
+<script src="../JAVASCRIPT/authhelper.js"></script>
+
+<script>
+const apiUrls = [
+    'https://dummyjson.com/products/category/laptops',
+    'https://dummyjson.com/products/category/smartphones',
+    'https://dummyjson.com/products/category/mens-watches',
+    'https://dummyjson.com/products/category/tablets',
+    'https://dummyjson.com/products/category/mobile-accessories'
+];
+
+async function loadHomeContent() {
+    try {
+        const responses = await Promise.all(apiUrls.map(url => fetch(url)));
+        const data = await Promise.all(responses.map(res => res.json()));
+        
+        const laptops = data[0].products;
+        const phones = data[1].products;
+        const watches = data[2].products;
+        const tablets = data[3].products;
+        const accessories = data[4].products;
+
+       // Trending Products
+const trendingRow = document.getElementById('cards-row');
+if (trendingRow) {
+    const diverseTrending = [laptops[0], phones[0], watches[0], tablets[0]];
+    
+    // بنجيب الداتا اللي متسيفة عشان نعرف مين واخد قلب أحمر
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+    trendingRow.innerHTML = diverseTrending.map(p => {
+        // بنشيك لو المنتج ده موجود في الويش ليست ولا لأ
+        const isFavorite = wishlist.some(item => (item.title || item.name) === p.title);
+        
+        return `
+            <div class="col-md-3">
+                <div class="card product-card h-100">
+                    <span class="badge bg-danger position-absolute m-2">Sale</span>
+                    <div class="img-3d text-center p-2">
+                        <img src="${p.thumbnail}" alt="${p.title}" style="max-height:150px; object-fit:contain; width:100%;">
+                    </div>
+                    <div class="card-body text-center d-flex flex-column">
+                        <h6 class="text-truncate fw-bold">${p.title}</h6>
+                        <p class="text-primary fw-bold mt-auto">${p.price} EGP</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a href="product.html?id=${p.id}&name=${encodeURIComponent(p.title)}&price=${p.price}&img=${encodeURIComponent(p.thumbnail)}&rating=${p.rating}" class="btn btn-sm btn-primary flex-grow-1">View</a>
+                            
+                            <button class="btn btn-sm btn-outline-secondary" onclick="handleUserAction(() => addToCart('${p.title}', ${p.price}, '${p.thumbnail}'))">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+
+                            <button class="btn btn-sm ${isFavorite ? 'btn-danger' : 'btn-outline-danger'}" 
+                                    onclick="handleUserAction(() => { 
+                                        addToWishlist('${p.title}', ${p.price}, '${p.thumbnail}'); 
+                                        loadHomeContent(); // بنعيد التحميل عشان اللون يتحدث 
+                                    })">
+                                <i class="${isFavorite ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    }).join('');
+}
+
+        // Flash Deals
+        const dealsRow = document.getElementById('deals-container');
+        if (dealsRow) {
+            const chicDeals = [accessories[0], watches[1], accessories[1]];
+            dealsRow.innerHTML = chicDeals.map(p => `
+                <div class="col-md-4">
+                    <a href="product.html?id=${p.id}&name=${encodeURIComponent(p.title)}&price=${p.price}&img=${encodeURIComponent(p.thumbnail)}&rating=${p.rating}" class="text-decoration-none">
+                        <div class="deal-card position-relative">
+                            <img src="${p.thumbnail}" alt="${p.title}" class="deal-img">
+                            <div class="deal-price position-absolute bottom-0 start-50 translate-middle-x mb-2 px-3 py-1 bg-primary text-white rounded">
+                                <del>${(p.price * 1.4).toFixed(0)}</del> ${p.price} EGP
+                            </div>
+                        </div>
+                    </a>
+                </div>`).join('');
+        }
+
+    } catch (err) { console.error("API Error:", err); }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    loadHomeContent();
+    const animatedSections = document.querySelectorAll('.animate-up, .animate-down, .animate-left, .animate-right');
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    animatedSections.forEach(sec => observer.observe(sec));
+});
+/*---------------subscribe----------*/
+function validateSubscribe() {
+    const emailInput = document.getElementById('subEmail');
+    const messageDiv = document.getElementById('subMessage');
+    const emailValue = emailInput.value.trim();
+
+    // Regex للتأكد إن الإيميل رسمي 100%
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (emailValue === "") {
+        messageDiv.innerHTML = "Please enter your email address.";
+        messageDiv.style.color = "#ffc107"; 
+    } 
+    else if (!emailPattern.test(emailValue)) {
+        messageDiv.innerHTML = "Invalid email format! Please use (name@example.com).";
+        messageDiv.style.color = "#f8d7da"; 
+        emailInput.style.border = "2px solid red";
+    } 
+    else {
+    
+        messageDiv.innerHTML = "Successfully subscribed! Check your inbox soon.";
+        messageDiv.style.color = "#d4edda"; 
+        emailInput.style.border = "2px solid green";
+    
+        emailInput.value = "";
+        console.log("Valid Email Submitted:", emailValue);
+    }
+}
+document.addEventListener("DOMContentLoaded", function() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    
+    if (user && user.role === 'admin') {
+        alert("Welcome Admin! Redirecting to your dashboard...");
+        window.location.href = "admin_dashboard.html";
+    }
+});
+</script>
+</body>
+</html>
