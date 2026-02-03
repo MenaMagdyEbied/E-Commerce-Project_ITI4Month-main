@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        :root { --admins-bg: #f8f9fa; --admins-border: #eee; }
+        body { background: var(--admins-bg); font-size: 14px; font-family: sans-serif; }
+        
+        /* Sidebar Styles from admins.html */
+        .admins-side { min-height: 100vh; background: #fff; border-right: 1px solid var(--admins-border); }
+        .admins-link { color: #666; padding: 10px; border-radius: 8px; text-decoration: none; display: block; }
+        .admins-link.active { background: #e7f1ff; color: #0d6efd; font-weight: 600; }
+        
+        /* Content Styles */
+        .products-box { background: #fff; border-radius: 12px; border: 1px solid var(--admins-border); }
+        .products-img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
+        .stock-badge { padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: bold; }
+        .in-stock { background: #e8f5e9; color: #2e7d32; }
+        .low-stock { background: #fff3e0; color: #ef6c00; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-md-2 admins-side p-3 d-none d-md-block">
+            <div class="fw-bold mb-4 text-primary fs-5 px-2"><i class="bi bi-shield-lock-fill"></i> Admin Dashboard</div>
+            <nav>
+                <a href="dashboard.html" class="admins-link mb-1"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+                <a href="admins.html" class="admins-link mb-1"><i class="bi bi-people-fill me-2"></i> Admins</a>
+                <a href="Categories.html" class="admins-link mb-1"><i class="bi bi-tags-fill me-2"></i> Categories</a>
+                <a href="products.html" class="admins-link active mb-1"><i class="bi bi-cart-fill me-2"></i> Products</a>
+                <a href="orders.html" class="admins-link mb-1"><i class="bi bi-bag-check me-2"></i> Orders</a>
+            </nav>
+        </aside>
+
+        <main class="col-md-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold m-0">Product Management</h3>
+                <button class="btn btn-primary btn-sm px-3 py-2"><i class="bi bi-plus-lg me-1"></i> Add Product</button>
+            </div>
+
+            <section class="products-box overflow-hidden">
+                <table class="table align-middle m-0">
+                    <thead class="bg-light text-muted small">
+                        <tr>
+                            <th class="ps-4 py-3">PRODUCT</th>
+                            <th>CATEGORY</th>
+                            <th>PRICE</th>
+                            <th>STOCK</th>
+                            <th class="text-center">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://via.placeholder.com/40" class="products-img me-2">
+                                    <div><b class="d-block">Wireless Headphones</b><small class="text-muted">ID: #8291</small></div>
+                                </div>
+                            </td>
+                            <td>Electronics</td>
+                            <td class="fw-bold">$249.00</td>
+                            <td><span class="stock-badge in-stock">IN STOCK</span></td>
+                            <td class="text-center">
+                                <button class="btn btn-sm text-muted"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm text-danger"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  if (!currentUser || currentUser.role !== "admin") {
+    alert("Access denied. Admins only.");
+    window.location.href = "../login.html";
+  }
+});
+</script>
+</body>
+</html>

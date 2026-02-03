@@ -1,0 +1,369 @@
+/* --------------- GENERAL --------------- */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------- HERO SECTION --------------- */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  height: 90vh; /* كامل الشاشة تقريبًا */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 15px;
+  max-width: 90%; /* يدي مسافة من الحواف على الموبايل */
+}
+
+/* Responsive */
+@media (max-width: 992px) {  /* شاشات تابلت */
+  .hero-section {
+    height: 70vh;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {  /* موبايل */
+  .hero-section {
+    height: 60vh;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .hero-content .btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
+
+/* --------------- FEATURES --------------- */
+.feature-card {
+  padding: 30px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* --------------- CATEGORIES --------------- */
+/* --------------- IMAGE POP-OUT --------------- */
+
+/* Parent container perspective */
+.categories-section .row {
+  perspective: 1200px;
+}
+
+/* Image wrapper for 3D pop-out */
+.img-3d {
+  display: inline-block;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  cursor: pointer;
+}
+
+/* Image base */
+.category-img {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 5px;
+  transition: transform 0.6s ease;
+}
+
+/* Pop-out on hover */
+.img-3d:hover .category-img {
+  transform: translateZ(60px) scale(1.05);
+}
+
+/* Optional: text stays static below the image */
+.text-primary {
+  display: block;
+  margin-top: 5px;
+  transition: transform 0.6s ease;
+}
+
+
+/* --------------- PRODUCTS --------------- */
+/* --------------- 3D POP-OUT CARD --------------- */
+
+/* Parent container controls perspective */
+#cards-row {
+  perspective: 1200px; /* perspective applied to row */
+}
+
+/* Card itself */
+.product-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease, box-shadow 0.6s ease;
+  overflow: visible; /* must allow image to escape */
+  padding-top: 40px;
+}
+
+/* Card moves BACK toward the center on hover */
+.product-card:hover {
+  transform: translateZ(-120px) rotateX(12deg);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+}
+
+/* Badge floats slightly */
+.product-card .badge {
+  top: 10px;
+  left: 10px;
+  transition: transform 0.6s ease;
+}
+
+.product-card:hover .badge {
+  transform: translateZ(40px);
+}
+
+/* Image wrapper */
+.img-3d {
+  transform-style: preserve-3d;
+}
+
+/* Image base state */
+.img-3d img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  transition: transform 0.6s ease;
+  transform: translateZ(0);
+}
+
+/* Image comes OUT of the square */
+.product-card:hover .img-3d img {
+  transform: translateZ(140px) scale(1.08);
+}
+
+/* Card body slightly back for depth */
+.card-body {
+  transition: transform 0.6s ease;
+}
+
+.product-card:hover .card-body {
+  transform: translateZ(-30px);
+}
+
+
+/* --------------- FLASH DEALS --------------- */
+.flash-deals-section {
+  padding: 60px 0;
+}
+
+.deal-card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #212529;   /* المربع نفسه */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 280px;         /* ارتفاع ثابت للمربع */
+  padding: 10px;         /* يدي margin داخلي للصورة */
+}
+
+/* الصورة أصغر من المربع */
+.deal-img {
+  width: 90%;            /* أصغر من الكارد */
+  height: auto;
+  max-height: 100%;      /* يمنع الصورة من الخروج من الكارد */
+  object-fit: contain;   /* يظهر الصورة كاملة بدون قص */
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.deal-card:hover .deal-img {
+  transform: scale(1.05); /* تكبير عند hover */
+}
+
+/* السعر ظاهر فوق الصورة */
+.deal-price {
+  font-weight: bold;
+  font-size: 1.1rem;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(13, 110, 253, 0.9); /* شفاف عشان يظهر فوق أي صورة */
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+
+/* --------------- CTA --------------- */
+.cta-section {
+  background-color: #0d6efd;
+}
+
+/* --------------- STATS --------------- */
+.stats-section h2 {
+  color: #0d6efd;
+}
+
+/* --------------- ANIMATIONS --------------- */
+/* Fade Up */
+.animate-up {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.8s ease-out;
+}
+.animate-up.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Fade Down */
+.animate-down {
+  opacity: 0;
+  transform: translateY(-40px) scale(0.95);
+  transition: all 0.8s ease-out;
+}
+.animate-down.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Fade Left */
+.animate-left {
+  opacity: 0;
+  transform: translateX(-40px) scale(0.95);
+  transition: all 0.8s ease-out;
+}
+.animate-left.show {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* Fade Right */
+.animate-right {
+  opacity: 0;
+  transform: translateX(40px) scale(0.95);
+  transition: all 0.8s ease-out;
+}
+.animate-right.show {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* --------------- Footer Base --------------- */
+.footer-custom {
+  background-color: #ffffff; /* أبيض */
+  font-size: 14px;
+  color: #2b2f3a;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  position: relative;
+}
+/* Divider/stripe في أعلى الفوتر */
+.footer-custom::before {
+  content: "";
+  display: block;
+  width: 60%; 
+  max-width: 500px; 
+  height: 3px;
+  background: linear-gradient(to right, #7b9fff, #b3c7ff);
+  margin: 0 auto 15px auto;
+  border-radius: 2px;
+}
+/* Headers columns */
+.footer-custom h6 {
+  border-bottom: 2px solid #7b6cf6;
+  display: inline-block;
+  padding-bottom: 3px;
+  margin-bottom: 10px;
+}
+/* Links */
+.footer-custom a {
+  text-decoration: none;
+  color: #7b6cf6;
+  transition: color 0.3s;
+}
+.footer-custom a:hover {
+  color: #5a4bd6;
+  transform: translateY(-2px);
+}
+/* Paragraph spacing */
+.footer-custom p {
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+/* Social Icons */
+.footer-social-about a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background-color: rgba(123, 108, 246, 0.1);
+  color: #2b2f3a;
+  transition: all 0.3s;
+}
+.footer-social-about a:last-child {
+  margin-right: 0;
+}
+.footer-social-about a:hover {
+  background-color: #7b6cf6;
+  color: white;
+  transform: scale(1.1);
+}
+/* Newsletter input + button Bootstrap */
+.footer-custom input[type="email"] {
+  padding: 8px 12px;
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+  margin-bottom: 5px;
+}
+.footer-custom button {
+  padding: 8px 12px;
+  border-radius: 0.25rem;
+}
+/* Copyright */
+.footer-custom .text-center.py-3 {
+  background-color: rgba(0,0,0,0.05);
+  font-size: 13px;
+}
+/* Make footer sticky bottom if page content is small */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.page-content {
+  flex: 1;
+}

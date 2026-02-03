@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root { --orders-bg: #f4f7fe; --orders-border: #e9ecef; }
+        body { background: var(--orders-bg); font-size: 13px; font-family: sans-serif; color: #334155; }
+        .orders-side { min-height: 100vh; background: #fff; border-right: 1px solid var(--orders-border); }
+        .orders-link { color: #64748b; padding: 12px; border-radius: 8px; text-decoration: none; display: block; margin-bottom: 5px; }
+        .orders-link.active { background: #e0eaff; color: #2563eb; font-weight: 600; }
+        .orders-box { background: #fff; border-radius: 16px; border: 1px solid var(--orders-border); }
+        .orders-status { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .status-pending { background: #fff7ed; color: #c2410c; }
+        .status-confirmed { background: #f0fdf4; color: #15803d; }
+        .status-rejected { background: #fef2f2; color: #b91c1c; }
+        .orders-tabs { border-bottom: 2px solid #f1f5f9; margin-bottom: 20px; }
+        .orders-tab-item { padding: 10px 20px; cursor: pointer; color: #64748b; border-bottom: 2px solid transparent; display: inline-block; }
+        .orders-tab-item.active { color: #2563eb; border-bottom-color: #2563eb; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-md-2 orders-side p-3 d-none d-md-flex flex-column">
+            <div class="fw-bold mb-4 text-primary fs-5 px-2"><i class="bi bi-shield-lock-fill"></i> Admin Dashboard</div>
+            <nav class="flex-grow-1">
+                <a href="dashboard.html" class="orders-link"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
+                <a href="admins.html" class="orders-link"><i class="bi bi-people-fill me-2"></i> Admins</a>
+                <a href="Categories.html" class="orders-link"><i class="bi bi-tags-fill me-2"></i> Categories</a>
+                <a href="products.html" class="orders-link"><i class="bi bi-cart-fill me-2"></i> Products</a>
+                <a href="orders.html" class="orders-link active"><i class="bi bi-bag-fill me-2"></i> Orders</a>
+            </nav>
+        </aside>
+
+        <main class="col-md-10 p-4">
+            <header class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold m-0">Order Management</h4>
+            </header>
+
+            <div class="orders-tabs">
+                <div class="orders-tab-item active" onclick="filterOrders('all', this)">All Orders</div>
+                <div class="orders-tab-item" onclick="filterOrders('pending', this)">Pending</div>
+                <div class="orders-tab-item" onclick="filterOrders('confirmed', this)">Confirmed</div>
+                <div class="orders-tab-item" onclick="filterOrders('rejected', this)">Rejected</div>
+            </div>
+
+            <section class="orders-box overflow-hidden">
+                <table class="table align-middle m-0">
+                    <thead class="bg-light text-muted small">
+                        <tr>
+                            <th class="ps-4 py-3">ORDER ID</th>
+                            <th>CUSTOMER</th>
+                            <th>TOTAL</th>
+                            <th>STATUS</th>
+                            <th class="text-end pe-4">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderTableBody">
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</div>
+
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content orders-box p-2">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold">Order Details</h5>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../JAVASCRIPT/orders.js"></script>
+</body>
+</html>

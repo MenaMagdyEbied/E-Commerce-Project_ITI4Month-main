@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/new.css">
+</head>
+
+<body>
+   </nav>
+   <nav class="navbar navbar-expand-lg fixed-top shadow-sm py-3 transition-nav bg-white" id="mainNavbar">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold text-primary fs-3" href="index.html">ShopEase</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link px-3 fw-semibold" href="Home.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-3 fw-semibold" href="index.html">Shop</a></li>
+                <li class="nav-item"><a class="nav-link px-3 fw-semibold" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link px-3 fw-semibold" href="orders.html">Orders</a></li>
+                <li class="nav-item"><a class="nav-link px-3 fw-semibold" href="Contact Us.html">Contact</a></li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2">
+                <div class="search-container me-2">
+                    <input type="text" class="form-control form-control-sm rounded-pill px-3" id="searchBar" 
+                           placeholder="Search..." onkeyup="filterProducts()" style="width: 150px;">
+                </div>
+
+                <a href="wishlist.html" class="text-dark p-1"><i class="material-symbols-outlined fs-5">favorite</i></a>
+                <a href="shopping_cart.html" class="text-dark p-1 position-relative">
+                    <i class="material-symbols-outlined fs-5">shopping_cart</i>
+                </a>
+
+                <div class="dropdown ms-2">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle hide-caret" data-bs-toggle="dropdown">
+                        <img src="../images/bg-header.avif" alt="profile" width="35" height="35" class="rounded-circle border">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                        <li><h6 class="dropdown-header" id="userNameDisplay">Guest</h6></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="#" onclick="logoutUser()">
+                            <span class="material-symbols-outlined fs-5">logout</span> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<script src="../JAVASCRIPT/script.js"></script>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+ 
