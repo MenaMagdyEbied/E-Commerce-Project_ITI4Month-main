@@ -1,0 +1,133 @@
+/* ============================================================ */
+/* 1. ستايلات الصفحة الأصلية (Order & Layout) */
+/* ============================================================ */
+:root {
+    --primary-color: #0d6efd;
+    --primary-hover: #0056b3;
+    --bg-light: #f5f7fa;
+    --text-muted: #636e72;
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: ltr;
+}
+
+.navbar input {
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    padding-left: 40px;
+}
+
+.filter-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    color: #2d3436;
+}
+
+.filter-list li {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.filter-list li:hover,
+.filter-list .active {
+    background-color: #e9f1ff;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.rating-num {
+    font-weight: bold;
+    color: #2d3436;
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+/* ============================================================ */
+/* 2. تنسيقات المنتجات (تصليح الزحمة والـ Hover الأزرق) */
+/* ============================================================ */
+
+.product-card {
+    border: none;
+    border-radius: 15px;
+    transition: 0.3s;
+    position: relative;
+    background: #fff;
+    overflow: hidden;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.product-card img {
+    height: 160px;
+    object-fit: contain;
+    width: 100%;
+    padding: 10px;
+}
+
+/* حاوية الأزرار عشان المسافات */
+.product-card .card-body .d-flex.gap-2 {
+    gap: 10px !important;
+    margin-top: auto;
+}
+
+/* زرار الـ View */
+.btn-view {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    font-weight: 600;
+    flex: 1; 
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.3s;
+    border: none !important;
+}
+
+.btn-view:hover {
+    background-color: var(--primary-hover) !important;
+}
+
+/* زرار العربة والويشليست (Icons) */
+.btn-cart-icon, .btn-wish-icon {
+    background-color: #fff !important;
+    border: 1px solid #ddd !important;
+    color: var(--text-muted) !important;
+    border-radius: 8px !important;
+    width: 42px !important;
+    height: 40px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    flex-shrink: 0; 
+}
+
+/* هوفر موحد أزرق صريح */
+.btn-cart-icon:hover,
+.btn-wish-icon:not(.active):hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* حالة القلب Active (أحمر) */
+.btn-wish-icon.active {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border-color: #dc3545 !important;
+}

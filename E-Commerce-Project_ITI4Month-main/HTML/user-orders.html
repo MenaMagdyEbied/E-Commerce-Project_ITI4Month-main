@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+
+    <nav id="navbar"></nav>
+
+    <main class="bg-body-tertiary min-vh-100">
+        <section class="container py-5">
+            <h2>My Orders</h2>
+            <p>Manage and track your previous purchases from the last 12 months</p>
+
+            <!-- Filter Buttons -->
+            <div class="mb-3">
+                <button class="btn btn-outline-dark filter-btn active" data-status="all">All</button>
+                <button class="btn btn-outline-warning filter-btn" data-status="pending">Pending</button>
+                <button class="btn btn-outline-success filter-btn" data-status="confirmed">Confirmed</button>
+            </div>
+
+            <!-- Orders Container -->
+            <div class="my-orders py-4"></div>
+        </section>
+    </main>
+
+    <footer id="footer"></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../JAVASCRIPT/LoadComponents.js"></script>
+    <script src="../JAVASCRIPT/auth.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            initFilters();
+            loadOrders("all");
+        });
+
+        // Filter Buttons
+        function initFilters() {
+            const buttons = document.querySelectorAll("button.filter-btn");
+
+            buttons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    buttons.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+
+                    const status = btn.dataset.status;
+                    loadOrders(status);
+                });
+            });
+        }
+
+        // Load Orders
+        function loadOrders(filter = "all") {
+            const container = document.querySelector(".my-orders");
+            if (!container) return;
+
+            const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            if (!currentUser) {
+                container.innerHTML = `<p class="text-center text-muted">Please login to view your orders.</p>`;
+                return;
+            }
+
+            const orders = JSON.parse(localStorage.getItem("confirmedOrders")) || [];
+            const userOrders = orders.filter(o => o.email === currentUser.email);
+
+            const filteredOrders = filter === "all"
+                ? userOrders
+                : userOrders.filter(o => o.status.toLowerCase() === filter);
+
+            if (filteredOrders.length === 0) {
+                container.innerHTML = `<p class="text-muted text-center mt-4">No orders found</p>`;
+                return;
+            }
+
+            filteredOrders.forEach(order => {
+                // HTML لكل منتج في الطلب
+                const itemsHTML = order.items.map(item => `
+                <div class="card mb-2 shadow-sm border-0 p-2 bg-light">
+                <div class="row align-items-center text-center">
+                <div class="col-3">
+                <img src="${item.image}" 
+                     class="img-fluid rounded object-fit-cover" 
+                     alt="${item.name}" 
+                     style="height: 70px; width: auto;">
+                </div>
+                <div class="col-5 d-flex flex-column justify-content-center">
+                 <h6 class="mb-1 small text-truncate">${item.name}</h6>
+                </div>
+               <div class="col-2 d-flex flex-column justify-content-center">
+                <span class="small text-muted">Quantity: ${item.quantity}</span>
+               </div>
+               <div class="col-2 d-flex flex-column justify-content-center">
+                <strong class="small text-primary">$${item.price.toFixed(2)}</strong>
+               </div>
+        </div>
+    </div>
+`).join("");
+
+
+                // HTML كامل للطلب
+                const orderHTML = `
+            <div class="card shadow-sm mb-4 border-0 p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0">Order #${order.id}</h5>
+                    <h5 class="fw-bold mb-0">$${order.totalPrice.toFixed(2)}</h5>
+                </div>
+                <div class="mb-2 d-flex align-items-center">
+                    ${getStatusBadge(order.status)}
+                    <small class="text-muted ms-2">Ordered on: ${new Date(order.id).toLocaleDateString()}</small>
+                </div>
+                ${itemsHTML}
+            </div>
+        `;
+
+                container.insertAdjacentHTML("beforeend", orderHTML);
+            });
+        }
+
+
+        // Status Badge
+        function getStatusBadge(status) {
+            status = status.toLowerCase();
+            switch (status) {
+                case "pending":
+                    return `<span class="badge bg-warning text-dark">Pending</span>`;
+                case "confirmed":
+                    return `<span class="badge bg-success text-dark">Confirmed</span>`;
+                default:
+                    return `<span class="badge bg-secondary">${status}</span>`;
+            }
+        }
+    </script>
+</body>
+
+</html>

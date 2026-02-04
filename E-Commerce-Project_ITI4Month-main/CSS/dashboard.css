@@ -1,0 +1,62 @@
+.dashboard-body {
+    margin: 0;
+    padding: 0;
+     background: url('imgs/wave3.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-card {
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.dashboard-card h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #525fae;
+}
+
+.dashboard-card .tagline {
+    font-size: 16px;
+    color: #a94442;
+    margin-bottom: 30px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-box {
+    background-color: #2563eb;
+    color: white;
+    padding: 30px 20px;
+    border-radius: 12px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dashboard-box:hover {
+    background-color: #0c559f;
+    transform: translateY(-3px);
+}
+
+.logout {
+    background-color: #a94442;
+}
+
+.logout:hover {
+    background-color: #7d2e2e;
+}
