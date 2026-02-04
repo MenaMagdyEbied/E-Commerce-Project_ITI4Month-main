@@ -1,174 +1,244 @@
-const products = [];
-const imgs = {
-    "Laptops": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500",
-    "Phones": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
-    "Tablets": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500",
-    "Watches": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",
-    "Accessories": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500"
-};
+let products = [];
+let filtered = [];
+let currentPage = 1;
+const perPage = 12;
+const urls = [
+    'https://dummyjson.com/products/category/laptops',
+    'https://dummyjson.com/products/category/smartphones',
+    'https://dummyjson.com/products/category/mens-watches',
+    'https://dummyjson.com/products/category/tablets',
+    'https://dummyjson.com/products/category/mobile-accessories'
+];
 
-const catList = ["Laptops", "Phones", "Tablets", "Watches", "Accessories"];
-
-// إنشاء 100 منتج 
-for (let i = 1; i <= 100; i++) {
-    let cat = catList[i % catList.length];
-    products.push({
-        id: i, name: `${cat} Premium ${i}`, category: cat,
-        price: Math.floor(Math.random() * 1400) + 30, img: imgs[cat] + "&sig=" + i,
-        ratingValue: (Math.random() * (5 - 3.5) + 3.5).toFixed(1)
-    });
+async function loadProducts() {
+    if (document.getElementById('loader')) document.getElementById('loader').style.display = 'block';
+    try {
+        const res = await Promise.all(urls.map(u => fetch(u).then(r => r.json())));
+        products = res.flatMap(d => d.products.map(p => ({
+            id: p.id, name: p.title, price: p.price, img: p.thumbnail, rating: p.rating, category: p.category
+        })));
+        filtered = [...products];
+        display();
+    } catch (e) { console.error(e); }
+    if (document.getElementById('loader')) document.getElementById('loader').style.display = 'none';
 }
 
-let filtered = [...products];
-let currentPage = 1, perPage = 12;
-
-// --- الدالة اللي فيها الشغل كله (التصميم الجديد) ---
 function display() {
     const grid = document.getElementById('productGrid');
+    if (!grid) return;
     grid.innerHTML = "";
+
     const items = filtered.slice((currentPage - 1) * perPage, currentPage * perPage);
-    
+
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    const wishlist = user ? user.wishlist || [] : [];
+
     items.forEach(p => {
+        const inWishlist = wishlist.some(item => item.title === p.name);
+        const cardClass = inWishlist ? 'product-card wishlist-active border-0 shadow-sm h-100' : 'product-card border-0 shadow-sm h-100';
+
         grid.innerHTML += `
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="card product-card shadow-sm h-100 border-0" style="border-radius: 15px; overflow: hidden;">
-                    
-                    <div class="p-3 bg-light text-center">
-                        <img src="${p.img}" class="img-fluid" style="height: 160px; object-fit: contain;">
-                    </div>
-
-                    <div class="card-body p-3 d-flex flex-column">
-                        <h6 class="fw-bold text-truncate mb-1">${p.name}</h6>
-                        <p class="mb-2 small">
-                            <span class="rating-num fw-bold text-dark">${p.ratingValue}</span> 
-                            <span class="text-warning">★★★★☆</span>
-                        </p>
-                        <p class="price mb-3 fw-bold text-primary fs-5">$${p.price}</p>
-                        
-                        <div class="d-flex gap-2 mt-auto">
-                            <a href="product.html?name=${encodeURIComponent(p.name)}&price=${p.price}&img=${encodeURIComponent(p.img)}&rating=${p.ratingValue}" 
-                               class="btn btn-primary btn-sm flex-grow-1 rounded-3 d-flex align-items-center justify-content-center fw-bold">
-                               View
-                            </a>
-                            
-                            <button class="btn btn-outline-secondary btn-sm rounded-3 d-flex align-items-center justify-content-center" 
-                                    style="width: 38px; height: 38px;" onclick="addToCart('${p.name}')">
-                                <i class="bi bi-cart-plus"></i>
-                            </button>
-
-                            <button class="btn btn-outline-danger btn-sm rounded-3 d-flex align-items-center justify-content-center" 
-                                    style="width: 38px; height: 38px;" onclick="toggleWishlist(this)">
-                                <i class="bi bi-heart"></i>
-                            </button>
-                        </div>
-                    </div>
+        <div class="col-md-4 col-lg-3">
+            <div class="${cardClass} p-3">
+                <div class="img-container p-3 text-center">
+                    <img src="${p.img}" style="height:150px; object-fit:contain; width:100%;">
                 </div>
-            </div>`;
+                <div class="card-body d-flex flex-column">
+                    <h6 class="fw-bold text-truncate">${p.name}</h6>
+                    <div class="mb-2 small">${getStars(p.rating)} <span class="text-muted">(${p.rating})</span></div>
+                    <h5 class="text-primary fw-bold mb-3 mt-auto">$${p.price}</h5>
+                   <div class="d-flex justify-content-between align-items-center mt-auto">
+                   <div class="d-flex gap-2">
+                   <a href="product.html?id=${p.id}&name=${encodeURIComponent(p.name)}&price=${p.price}&img=${encodeURIComponent(p.img)}" class="btn btn-primary btn-view">View</a>
+                   <button class="btn btn-cart-icon" onclick="addToCart('${p.name}', ${p.price}, '${p.img}')">
+                  <i class="bi bi-cart-plus"></i>
+                  </button>
+                  </div>
+    
+                 <button class="btn btn-wish-icon ${inWishlist ? 'active btn-danger' : 'btn-outline-secondary'}" 
+                 onclick="toggleWishlist('${p.name}', ${p.price}, '${p.img}', this)">
+                 <i class="bi ${inWishlist ? 'bi-heart-fill text-white' : 'bi-heart text-secondary'}"></i>
+                 </button>
+                </div>
+                </div>
+            </div>
+        </div>`;
     });
+
     renderPagination();
 }
 
-// --- باقي الوظائف (بقية الـ Logic بتاعك زي ما هو) ---
+function toggleWishlist(name, price, img, btn) {
+    addToWishlist(name, price, img); // تضيف/تشيل من wishlist
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    const inWishlist = user.wishlist.some(item => item.title === name);
+    const icon = btn.querySelector('i');
 
-function renderPagination() {
-    const controls = document.getElementById('paginationControls');
-    if(!controls) return;
-    controls.innerHTML = "";
-    const total = Math.ceil(filtered.length / perPage);
-    for (let i = 1; i <= total; i++) {
-        controls.innerHTML += `<li class="page-item ${i === currentPage ? 'active' : ''}"><button class="page-link shadow-none" onclick="currentPage=${i}; display(); window.scrollTo(0,0)">${i}</button></li>`;
+    if (inWishlist) {
+        btn.classList.add('btn-danger');
+        btn.classList.remove('btn-outline-secondary');
+        icon.classList.add('bi-heart-fill', 'text-white');
+        icon.classList.remove('bi-heart', 'text-secondary');
+    } else {
+        btn.classList.add('btn-outline-secondary');
+        btn.classList.remove('btn-danger');
+        icon.classList.add('bi-heart', 'text-secondary');
+        icon.classList.remove('bi-heart-fill', 'text-white');
     }
 }
 
-function updatePriceLabel(val) {
-    document.getElementById('maxPriceLabel').innerText = val;
-    filterProducts();
-}
 
-function toggleAll(el) {
-    const checkboxes = document.querySelectorAll('input[name="cat"]');
-    if (el.checked) {
-        checkboxes.forEach(cb => cb.checked = false);
+// فانكشن النجوم  
+function getStars(rating) {
+    let stars = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= Math.floor(rating)) stars += '<i class="bi bi-star-fill text-warning"></i>';
+        else if (i === Math.ceil(rating) && rating % 1 >= 0.5) stars += '<i class="bi bi-star-half text-warning"></i>';
+        else stars += '<i class="bi bi-star text-warning"></i>';
     }
-    filterProducts();
+    return stars;
 }
 
-function updateFilters() {
-    const checkboxes = document.querySelectorAll('input[name="cat"]:checked');
-    const allCheck = document.getElementById('catAll');
-    if (checkboxes.length > 0) { allCheck.checked = false; } 
-    else { allCheck.checked = true; }
-    filterProducts();
-}
-
+// باقي الفانكشن الفلترة والترقيم 
 function clearFilters() {
     document.getElementById('catAll').checked = true;
     document.querySelectorAll('input[name="cat"]').forEach(cb => cb.checked = false);
-    document.getElementById('priceSlider').value = 1500;
-    document.getElementById('maxPriceLabel').innerText = 1500;
-    const searchBar = document.getElementById('searchBar');
-    if(searchBar) searchBar.value = '';
+    document.getElementById('priceSlider').value = 3000;
+    document.getElementById('maxPriceLabel').innerText = 3000;
     filterProducts();
 }
-
 function filterProducts() {
-    const searchInput = document.getElementById('searchBar');
-    const search = searchInput ? searchInput.value.toLowerCase() : "";
+    // بنجيب السيرش من أي مكان في الصفحة
+    const searchQuery = document.getElementById('searchInput')?.value.toLowerCase() || "";
     const maxPrice = parseInt(document.getElementById('priceSlider').value);
     const selectedCats = Array.from(document.querySelectorAll('input[name="cat"]:checked')).map(cb => cb.value);
     const isAll = document.getElementById('catAll').checked;
 
     filtered = products.filter(p => {
-        const mSearch = p.name.toLowerCase().includes(search);
-        const mCat = isAll || selectedCats.includes(p.category);
-        const mPrice = p.price <= maxPrice;
-        return mSearch && mCat && mPrice;
+        const matchesName = p.name.toLowerCase().includes(searchQuery);
+        const matchesCat = isAll || selectedCats.includes(p.category);
+        const matchesPrice = p.price <= maxPrice;
+        return matchesName && matchesCat && matchesPrice;
     });
+
     currentPage = 1;
     display();
 }
-
-// دوال إضافية للتشغيل
-function addToCart(name) { alert("Added to cart: " + name); }
-function toggleWishlist(btn) { 
-    const icon = btn.querySelector('i');
-    icon.classList.toggle('bi-heart');
-    icon.classList.toggle('bi-heart-fill');
-    btn.classList.toggle('btn-danger');
-    btn.classList.toggle('btn-outline-danger');
+function updatePriceLabel(v) { document.getElementById('maxPriceLabel').innerText = v; filterProducts(); }
+function toggleAll(el) { if (el.checked) document.querySelectorAll('input[name="cat"]').forEach(c => c.checked = false); filterProducts(); }
+function updateFilters() { document.getElementById('catAll').checked = (document.querySelectorAll('input[name="cat"]:checked').length === 0); filterProducts(); }
+function renderPagination() {
+    const container = document.getElementById('paginationControls');
+    if (!container) return;
+    container.innerHTML = "";
+    const total = Math.ceil(filtered.length / perPage);
+    for (let i = 1; i <= total; i++) {
+        container.innerHTML += `<li class="page-item ${i === currentPage ? 'active' : ''}"><button class="page-link" onclick="currentPage=${i};display();window.scrollTo(0,0)">${i}</button></li>`;
+    }
 }
 
-// التنفيذ عند التحميل
-document.addEventListener("DOMContentLoaded", () => {
-    display();
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    const nameLabels = document.querySelectorAll(".user-name-nav");
-    if (user) { nameLabels.forEach(label => label.innerText = user.username); }
-});
-         
-        //  التحكم في كلاس السكرول
-window.onscroll = function() {
-    const navbar = document.getElementById('mainNavbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('nav-scrolled');
-    } else {
-        navbar.classList.remove('nav-scrolled');
+// تشغيل التحميل
+loadProducts();
+window.addEventListener('load', () => {
+    // 1. قراءة المعطيات من رابط الصفحة (URL)
+    const params = new URLSearchParams(window.location.search);
+    const categoryFromUrl = params.get('cat'); // هيجيب مثلاً laptops
+
+    if (categoryFromUrl) {
+        //  فك العلامة من "All Products" لو موجودة
+        const allCheck = document.getElementById('catAll');
+        if (allCheck) allCheck.checked = false;
+
+        //  دور على ال Checkbox اللي واخد نفس قيمة الكاتيجوري
+        const targetCheckbox = document.querySelector(`.cat-check[value="${categoryFromUrl}"]`);
+
+        if (targetCheckbox) {
+            targetCheckbox.checked = true; // علّم عليه صح
+            // تأكد إن اسم الفانكشن عندك updateFilters أو غيرها للي بتعمل الفلترة
+            if (typeof updateFilters === 'function') {
+                updateFilters();
+            }
+        }
     }
-};
+});
 
 
-//  دالة تسجيل الخروج
-function logoutUser() {
-    localStorage.removeItem("currentUser");
-    alert("Signing out...");
-    window.location.href = "login.html";
+function handleUserAction(actionCallback) {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (!user) {
+        alert("Please login first!");
+        window.location.href = "login.html";
+        return;
+    }
+
+    if (user.role === 'admin') {
+        alert("Admin Account: View only mode.");
+        return;
+    }
+
+    actionCallback();
 }
 
-//  تحديث اسم المستخدم
-document.addEventListener("DOMContentLoaded", () => {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    const nameLabels = document.querySelectorAll(".user-name-nav");
-    if (user) {
-        nameLabels.forEach(label => label.innerText = user.username);
-    }
-});
+// دالة الويش ليست 
+function addToWishlist(name, price, img) {
+    handleUserAction(() => {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+
+        currentUser.wishlist = currentUser.wishlist || [];
+
+        const index = currentUser.wishlist.findIndex(item => item.title === name);
+
+        if (index === -1) {
+            currentUser.wishlist.push({ title: name, price, img });
+            alert('Added to Wishlist!');
+        } else {
+            currentUser.wishlist.splice(index, 1);
+            alert('Removed from Wishlist!');
+        }
+
+        // تحديث users array
+        const userIdx = users.findIndex(u => u.email === currentUser.email);
+        if (userIdx !== -1) {
+            users[userIdx] = currentUser;
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // حفظ currentUser فقط
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+        if (typeof display === "function") display();
+    });
+}
+
+// فانكشن add to cart
+function addToCart(name, price, img) {
+    handleUserAction(() => {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+
+        currentUser.cart = currentUser.cart || [];
+
+        const index = currentUser.cart.findIndex(item => item.title === name);
+
+        if (index === -1) {
+            currentUser.cart.push({ title: name, price, img, quantity: 1 });
+            alert('Added to Cart!');
+        } else {
+            currentUser.cart[index].quantity += 1;
+            alert('Updated quantity in Cart!');
+        }
+
+        const userIdx = users.findIndex(u => u.email === currentUser.email);
+        if (userIdx !== -1) {
+            users[userIdx] = currentUser;
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+        if (typeof renderCart === "function") renderCart();
+        if (typeof updateCartCount === "function") updateCartCount();
+    });
+}

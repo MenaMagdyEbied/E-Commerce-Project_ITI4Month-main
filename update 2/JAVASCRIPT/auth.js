@@ -88,10 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // نقل بيانات السلة والويشليست للجلسة (إضافة زميلك)
       localStorage.setItem("currentUser", JSON.stringify(targetUser));
-      if (!isAdminLogin) {
-        localStorage.setItem("wishlist", JSON.stringify(targetUser.wishlist || []));
-        localStorage.setItem("cart", JSON.stringify(targetUser.cart || []));
-      }
 
       alert("Login successful! Welcome " + (targetUser.name || targetUser.fullName));
 
@@ -104,56 +100,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
-/* ------------------ 3. وظائف السلة والويشليست ------------------ */
-// (تبقى كما هي لضمان عمل أزرار الإضافة في صفحات المنتجات)
-
-function handleUserAction(actionCallback) {
-  const user = JSON.parse(localStorage.getItem('currentUser'));
-  if (!user) {
-    alert("Please login first!");
-    window.location.href = "login.html";
-    return;
-  }
-  if (user.role === 'admin') {
-    alert("Admin Account: View only mode.");
-    return;
-  }
-  actionCallback();
-}
-
-function addToCart(name, price, img) {
-  handleUserAction(() => {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    const index = cart.findIndex(item => item.title === name);
-    if (index === -1) {
-      cart.push({ title: name, price, img, quantity: 1 });
-    } else {
-      cart[index].quantity += 1;
-    }
-
-    // تحديث مصفوفة المستخدمين (للحفظ الدائم)
-    const userIdx = users.findIndex(u => u.email === currentUser.email);
-    if (userIdx !== -1) {
-      users[userIdx].cart = cart;
-      localStorage.setItem('users', JSON.stringify(users));
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    currentUser.cart = cart;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-    alert('Cart Updated!');
-  });
-}
+  /* ------------------- تسجيل خروج (Logout) ------------------- */
 
 function logoutUser() {
-  if (confirm("Are you sure?")) {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('wishlist');
-    localStorage.removeItem('cart');
-    window.location.href = "Home.html"; 
-  }
+    if (confirm("Are you sure you want to logout?")) {
+        // بنشيل "البروفايل" اللي مفتوح دلوقتي
+        localStorage.removeItem('currentUser');
+
+        alert("Logged out successfully!");
+
+        // نرجعه للهوم ونعمل ريفريش عشان دالة display() تشتغل وتلاقي wishlist فاضية
+        window.location.href = "Home.html";
+    }
 }
+
+

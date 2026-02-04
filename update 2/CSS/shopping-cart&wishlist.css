@@ -27,7 +27,7 @@
 }
 
 .btn-remove:hover {
-    color: #dc3545;
+    color: #dc3545 !important;
 }
 
 /* Wishlist Image */
@@ -54,5 +54,5 @@
 }
 
 .btn-wishlist-remove:hover {
-    color: #dc3545;
+    color: #dc3545 !important;
 }
